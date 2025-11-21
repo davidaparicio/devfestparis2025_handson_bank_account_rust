@@ -64,7 +64,7 @@ Des liens vers la documentation vous seront également fourni pour vous aider da
 
 Création de la structure `BankAccount` contenant les champs suivants :
 - `account_number` de type `String`
-- `initial_amount` de type `u64`
+- `initial_amount` de type `i64`
 
 Créer une fonction appelée `create_new_account` qui prend en paramètre un `account_number` et un `initial_amount` et qui retourne une instance de `BankAccount`.
 
@@ -89,7 +89,7 @@ Création d'un enum `Transaction` contenant les variants suivants :
 
 Avec pour chacun les deux champs suivants :
 - `date` de type `DateTime<Utc>`
-- `amount` de type `u64`
+- `amount` de type `i64`
 
 Création d'une méthode `amount` renvoyant le montant de la transaction, qui renvoie le montant en valeur relative.
 C'est à dire que pour un dépôt, le montant sera positif, et pour un retrait le montant doit être négatif.
@@ -111,7 +111,7 @@ cargo test --features domain2
 
 #### Énoncé
 
-Création de deux méthodes `deposit` et `withdraw` sur la structure `BankAccount` prenant en paramètre un `amount` de type `u64`.
+Création de deux méthodes `deposit` et `withdraw` sur la structure `BankAccount` prenant en paramètre un `amount` de type `i64`.
 Ces méthodes créent une nouvelle instance de `Transaction` et l'ajoutent au champ `transactions`.
 
 Mettre à jour la méthode `balance` pour prendre en compte les transactions.
