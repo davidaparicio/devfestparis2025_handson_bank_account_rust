@@ -105,6 +105,7 @@ cargo test --features domain2
 
 #### Lien utile
 - https://doc.rust-lang.org/book/ch06-01-defining-an-enum.html
+- https://doc.rust-lang.org/book/ch19-03-pattern-syntax.html
 - https://doc.rust-lang.org/rust-by-example/std/vec.html
 
 ### Étape 3
