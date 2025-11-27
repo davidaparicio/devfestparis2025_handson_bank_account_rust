@@ -1,22 +1,8 @@
 use chrono::{DateTime, Utc};
 
-pub struct BankAccount {
-    account_number: String,
-    initial_amount: i64,
-}
+pub struct BankAccount {}
 
-impl BankAccount {
-    fn create_new_account(account_number: String, initial_amount: i64) -> BankAccount {
-        BankAccount {
-            account_number,
-            initial_amount,
-        }
-    }
-
-    fn balance(&self) -> i64 {
-        self.initial_amount
-    }
-}
+impl BankAccount {}
 
 pub enum Transaction {}
 
