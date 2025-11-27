@@ -1,10 +1,24 @@
 use chrono::{DateTime, Utc};
 
 pub struct BankAccount {
+    account_number: String,
+    initial_amount: i64,
 }
 
-pub enum Transaction {
+impl BankAccount {
+    fn create_new_account(account_number: String, initial_amount: i64) -> BankAccount {
+        BankAccount {
+            account_number,
+            initial_amount,
+        }
+    }
+
+    fn balance(&self) -> i64 {
+        self.initial_amount
+    }
 }
+
+pub enum Transaction {}
 
 #[allow(unused_imports)]
 #[cfg(test)]
@@ -37,7 +51,10 @@ mod tests {
     #[test]
     fn should_compute_transaction_deposit_amount() {
         // Given
-        let transaction = Transaction::Deposit { amount: 1_000, date: Utc::now() };
+        let transaction = Transaction::Deposit {
+            amount: 1_000,
+            date: Utc::now(),
+        };
 
         // When & Then
         assert_eq!(transaction.amount(), 1_000);
@@ -47,7 +64,10 @@ mod tests {
     #[test]
     fn should_compute_transaction_withdraw_amount() {
         // Given
-        let transaction = Transaction::Withdraw { amount: 1_000, date: Utc::now() };
+        let transaction = Transaction::Withdraw {
+            amount: 1_000,
+            date: Utc::now(),
+        };
 
         // When & Then
         assert_eq!(transaction.amount(), -1_000);
@@ -89,12 +109,12 @@ mod tests {
 
     #[cfg(feature = "domain3")]
     #[test]
-    fn should_with_draw_to_bank_account() {
+    fn should_withdraw_to_bank_account() {
         // Given
         let mut account = BankAccount::create_new_account("account_number".to_string(), 100);
 
         // When
-        account.with_draw(500);
+        account.withdraw(500);
 
         // Then
         assert_eq!(
@@ -116,7 +136,7 @@ mod tests {
         let mut account = BankAccount::create_new_account("account_number".to_string(), 1000);
 
         // When
-        account.with_draw(500);
+        account.withdraw(500);
         account.deposit(2000);
 
         // Then
