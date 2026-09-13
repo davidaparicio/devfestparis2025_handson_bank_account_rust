@@ -88,8 +88,13 @@ Création d'un enum `Transaction` contenant les variants suivants :
 - `Withdraw`
 
 Avec pour chacun les deux champs suivants :
-- `date` de type `DateTime<Utc>`
+- `date` de type `Zoned` (de la librairie `jiff`)
 - `amount` de type `i64`
+
+La date d'une transaction peut être créée de la façon suivante :
+```rust
+Timestamp::now().to_zoned(TimeZone::UTC)
+```
 
 Création d'une méthode `amount` renvoyant le montant de la transaction, qui renvoie le montant en valeur relative.
 C'est à dire que pour un dépôt, le montant sera positif, et pour un retrait le montant doit être négatif.
@@ -107,6 +112,7 @@ cargo test --features domain2
 - https://doc.rust-lang.org/book/ch06-01-defining-an-enum.html
 - https://doc.rust-lang.org/book/ch19-03-pattern-syntax.html
 - https://doc.rust-lang.org/rust-by-example/std/vec.html
+- https://docs.rs/jiff/latest/jiff/struct.Timestamp.html
 
 ### Étape 3
 
@@ -114,6 +120,11 @@ cargo test --features domain2
 
 Création de deux méthodes `deposit` et `withdraw` sur la structure `BankAccount` prenant en paramètre un `amount` de type `i64`.
 Ces méthodes créent une nouvelle instance de `Transaction` et l'ajoutent au champ `transactions`.
+
+Pour la date de la transaction, vous pouvez utiliser le même code que l'étape précédente :
+```rust
+Timestamp::now().to_zoned(TimeZone::UTC)
+```
 
 Mettre à jour la méthode `balance` pour prendre en compte les transactions.
 

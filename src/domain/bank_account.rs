@@ -1,4 +1,4 @@
-use chrono::{DateTime, Utc};
+use jiff::{Timestamp, Zoned, tz::TimeZone};
 
 #[derive(Clone, PartialEq, Debug)]
 pub struct BankAccount {}
@@ -12,7 +12,6 @@ pub enum Transaction {}
 #[cfg(test)]
 mod tests {
     use super::*;
-    use chrono::Utc;
 
     #[cfg(feature = "domain1")]
     #[test]
@@ -41,7 +40,7 @@ mod tests {
         // Given
         let transaction = Transaction::Deposit {
             amount: 1_000,
-            date: Utc::now(),
+            date: Timestamp::now().to_zoned(TimeZone::UTC),
         };
 
         // When & Then
@@ -54,7 +53,7 @@ mod tests {
         // Given
         let transaction = Transaction::Withdraw {
             amount: 1_000,
-            date: Utc::now(),
+            date: Timestamp::now().to_zoned(TimeZone::UTC),
         };
 
         // When & Then
@@ -83,16 +82,13 @@ mod tests {
         account.deposit(1000);
 
         // Then
-        assert_eq!(
-            matches!(
-                account.transactions[0],
-                Transaction::Deposit {
-                    date: _date,
-                    amount: 1000
-                }
-            ),
-            true
-        );
+        assert!(matches!(
+            account.transactions[0],
+            Transaction::Deposit {
+                date: _,
+                amount: 1000
+            }
+        ));
     }
 
     #[cfg(feature = "domain3")]
@@ -105,16 +101,13 @@ mod tests {
         account.withdraw(500);
 
         // Then
-        assert_eq!(
-            matches!(
-                account.transactions[0],
-                Transaction::Withdraw {
-                    date: _date,
-                    amount: 500
-                }
-            ),
-            true
-        );
+        assert!(matches!(
+            account.transactions[0],
+            Transaction::Withdraw {
+                date: _,
+                amount: 500
+            }
+        ));
     }
 
     #[cfg(feature = "domain3")]
